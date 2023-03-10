@@ -1,59 +1,288 @@
-﻿namespace Part_7___Collections
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace Part_7___Collections
 {
     internal class Program
     {
         static void Main(string[] args)
         {
+            /* 
+             List<int> numbers = new List<int>();
+             List<string> names = new List<string>() { "Arthur Dent", "Marvin" };
+             List<double> prices = new List<double>();
 
-            string[] names = new string[2];
+             names.Add("Trillian");
+             names.Add("Ford Prefect");
 
-            names[0] = "John Doe";
-            names[1] = "Jane Doe";
+             if (names.Contains("Ford Prefect"))
+             {
+                 Console.WriteLine("Hello");
+             }
 
-            for (int i = 0; i < names.Length; i++)
-                Console.WriteLine(names[i]);
+             names.Sort();
 
+             Console.WriteLine(names.Count);
 
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
+             for (int i = 0; i < names.Count; i++)
+                 Console.WriteLine(names[i]);
 
-
-            Random generator = new Random();
-
-            int[] numbers = new int[30];
-            int evenNum;
-            evenNum = 0;
+             foreach (string name in names)
+                 Console.WriteLine(name);
 
 
-            for (int i = 0; i < numbers.Length; i++)
-                numbers[i] = generator.Next(1, 101);
+             Console.WriteLine();
+             Console.WriteLine();
+             Console.WriteLine();
+             Console.WriteLine("-------------------");
 
-            for (int i = 0; i < numbers.Length; i++)
-                Console.Write(numbers[i] + " ");
+             for (int i = 0; i < names.Count; i++)
+                 names[i] = names[i].ToUpper();
 
-                    
+             names.Sort();
 
-            for (int i = 0; i < numbers.Length; i++)
-                if (numbers[i] % 2 == 0)
+             for (int i = 0; i < names.Count; i++)
+                 Console.WriteLine(names[i]);
+
+             for (int i = 1; i <= 3; i++)
+             {
+                 Console.Write("Enter a new name:  ");
+                 names.Add(Console.ReadLine().ToUpper());
+             }
+
+             names.Sort();
+
+             for (int i = 0; i < names.Count; i++)
+                 Console.WriteLine(names[i]);
+
+
+             string search;
+
+             Console.WriteLine("Enter a name to remove:  ");
+             search = (Console.ReadLine().ToUpper());
+             if (names.Remove(search))
+             {
+                 Console.WriteLine($"{search} removed!");
+             }
+             else
+             {
+                 names.Add (search);
+                 Console.WriteLine($"{search} added!");
+             }
+
+             Console.WriteLine(names.Count);
+            */
+
+
+
+
+
+
+
+
+            string program;
+            bool done = false;
+
+            while (!done)
+            {
+                Console.WriteLine();
+                Console.WriteLine("     MAIN MENU     ");
+                Console.WriteLine();
+                Console.WriteLine("Please select an option: ");
+                Console.WriteLine("1 - List of Integers");
+                Console.WriteLine("2 - List of Strings");
+                Console.WriteLine("q - Quit");
+                Console.Write("Choice: ");
+
+                program = Console.ReadLine().ToUpper();
+
+                switch (program)
                 {
-                    evenNum += 1;
+                    case "1": Program1(); break;
+                    case "2": Program2(); break;
+                    case "Q": done = true; break;
+                    default: Console.WriteLine(); Console.WriteLine("Invalid Input. "); Console.WriteLine(); break;
+                }   
+
+            }
+
+            static void Program1()
+            {
+                bool done = false;
+                int choice, number;
+                Random generator = new Random();
+
+                Console.WriteLine();
+                Console.WriteLine("Running: List of Integers... ");
+                Thread.Sleep(1000);
+                Console.WriteLine();
+                Console.WriteLine();
+
+
+                Console.WriteLine("Here is your list of integers: ");
+
+                List<int> integers = new List<int>();
+                for (int i = 0; i <= 25; i++)
+                {
+                    integers.Add(generator.Next(10, 21));
+                    Console.Write(integers[i]);
+                    if (i < 25)
+                    {
+                        Console.Write(", ");
+                    }
                 }
+                Thread.Sleep(1500);
 
-            Console.WriteLine();
-            for (int i = 0; i < numbers.Length; i++)
-                if (numbers[i] % 5 == 0)
-                    Console.Write(numbers[i] + " ");
+                Console.WriteLine();
+                Console.WriteLine();
+                do
+                {
+                    Console.WriteLine("Choose one of the options below to perform: ");
+                    Console.WriteLine("  1 - Sort the list ");
+                    Console.WriteLine("  2 - Generate a new list of random numbers ");
+                    Console.WriteLine("  3 - Remove a number(by value ");
+                    Console.WriteLine("  4 - Add a value to the list ");
+                    Console.WriteLine("  5 - Count the number of occurrences of a certain number ");
+                    Console.WriteLine("  6 - Print the largest number ");
+                    Console.WriteLine("  7 - Print the smallest number ");
+                    Console.WriteLine("  8 - Print the sum and average ");
+                    Console.WriteLine("  9 - Print most frequently occuring values "); //(top 3 maybe)
+                    Console.WriteLine("  10 - Print number of occurrences from number choice of user ");
+                    Console.WriteLine("  11 - Quit Program ");
+                    Thread.Sleep(500);
 
-            for (int i = 0; i < numbers.Length; i++)
-                if (i % 2 == 0)
+                    Console.Write("Choice:  ");
+
+                    while (!Int32.TryParse(Console.ReadLine(), out choice))
+                    {
+                        Console.WriteLine("Invalid Input. ");
+                        Console.WriteLine();
+                        Console.Write("Choice:  ");
+                    }
+
+                    Console.WriteLine();
+
+                    switch (choice)
+                    {
+                        case 1:
+                            Console.WriteLine("Sorting Numbers... ");
+                            Thread.Sleep(1000);
+                            integers.Sort();
+                            for (int i = 0; i <= 25; i++)
+                            {
+                                integers.Add(generator.Next(10, 21));
+                                Console.Write(integers[i]);
+                                if (i < 25)
+                                {
+                                    Console.Write(", ");
+                                }
+                            }
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine("Press ENTER to return to options");
+                            Console.ReadLine();
+                            Console.WriteLine();
+                            Thread.Sleep(1000);
+                            break;
+
+                        case 2:
+                            Console.WriteLine("Making New List... ");
+                            Thread.Sleep(1000);
+                            integers.Clear();
+                            for (int i = 0; i <= 25; i++)
+                            {
+                                integers.Add(generator.Next(10, 21));
+                                Console.Write(integers[i]);
+                                if (i < 25)
+                                {
+                                    Console.Write(", ");
+                                }
+                            }
+                            Console.WriteLine();
+                            Console.ReadLine();
+                            break;
+
+                        case 3:
+                            do
+                            {
+                                Console.WriteLine("Enter a number from the list that you would like to remove");
+                                Console.WriteLine("Number:  ");
+                                if (!Int32.TryParse(Console.ReadLine(), out number))
+                                {
+                                    Console.WriteLine("Invalid Input. ");
+                                }
+                                else
+                                {
+                                    integers.Remove(number);
+                                    done = true;
+                                }
+                            }while (!done);
+                            for (int i = 0; i <integers.Count; i++)
+                            {
+                                Console.WriteLine(integers[i]);
+                            }
+                            break;
+
+                        case 4:
+
+                            break;
+
+                        case 5:
+
+                            break;
+
+                        case 6:
+
+                            break;
+
+                        case 7:
+
+                            break;
+
+                        case 8:
 
 
-            Array.Sort(numbers);
+                        case 9:
 
-            Console.WriteLine();
-            Console.WriteLine(numbers[29]);
-            Console.WriteLine(evenNum);
+                            break;
+
+                        case 10:
+
+                            break;
+
+                        case 11:
+                            Console.WriteLine("Quitting Program... ");
+                            Console.WriteLine();
+                            Thread.Sleep(1000);
+                            done = true;
+                            break;
+                    }
+
+                }while (!done);
+
+
+
+                Console.WriteLine();
+            }
+
+            static void Program2()
+            {
+                // vvv Create Variables vvv \\
+
+
+                Console.WriteLine();
+                Console.WriteLine("Running: List of Integers... ");
+                Thread.Sleep(1000);
+                Console.WriteLine();
+                Console.WriteLine();
+
+                // vvv Continue Here vvv \\
+
+
+
+                Console.WriteLine();
+            }
+
+
 
         }
     }
