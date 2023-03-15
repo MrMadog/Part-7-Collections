@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Part_7___Collections
 {
@@ -28,22 +29,21 @@ namespace Part_7___Collections
                     case "2": Program2(); break;
                     case "Q": done = true; break;
                     default: Console.WriteLine(); Console.WriteLine("Invalid Input. "); Console.WriteLine(); break;
-                }   
+                }
 
             }
 
-// PROGRAM ONE --------------------------------------------------------------------------------------------------------------------------------------
+            // PROGRAM ONE --------------------------------------------------------------------------------------------------------------------------------------
 
             static void Program1()
             {
-                bool done, done1, done2, done3, done4;
-                int choice, number, intSum, intMin, intMax, groupedNumbers;
+                bool done, done1, done2, done3;
+                int choice, number, intSum, intMin, intMax;
                 double intAvg;
                 done = false;
                 done1 = false;
                 done2 = false;
                 done3 = false;
-                done4 = false;
                 Random generator = new Random();
 
                 Console.WriteLine();
@@ -87,8 +87,9 @@ namespace Part_7___Collections
 
                     Console.Write("Choice:  ");
 
-                    while (!Int32.TryParse(Console.ReadLine(), out choice))
+                    while (!Int32.TryParse(Console.ReadLine(), out choice) || choice > 11 || choice <= 0)
                     {
+                        Console.WriteLine();
                         Console.WriteLine("Invalid Input. ");
                         Console.WriteLine();
                         Console.Write("Choice:  ");
@@ -97,7 +98,7 @@ namespace Part_7___Collections
                     Console.WriteLine();
 
                     switch (choice)
-    // ONE ------------------------------------------------------------------------------------------------------------------------------------------
+                    // ONE ------------------------------------------------------------------------------------------------------------------------------------------
                     {
                         case 1:
                             Console.WriteLine("Sorting Numbers... ");
@@ -120,7 +121,7 @@ namespace Part_7___Collections
                             Thread.Sleep(1000);
                             break;
 
-    // TWO ------------------------------------------------------------------------------------------------------------------------------------------
+                        // TWO ------------------------------------------------------------------------------------------------------------------------------------------
 
                         case 2:
                             Console.WriteLine("Making New List... ");
@@ -144,7 +145,7 @@ namespace Part_7___Collections
                             Thread.Sleep(1000);
                             break;
 
-    // THREE ----------------------------------------------------------------------------------------------------------------------------------------
+                        // THREE ----------------------------------------------------------------------------------------------------------------------------------------
 
                         case 3:
                             do
@@ -177,7 +178,7 @@ namespace Part_7___Collections
                             for (int i = 0; i < integers.Count; i++)
                             {
                                 Console.Write(integers[i]);
-                                if (i < integers.Count - 1) 
+                                if (i < integers.Count - 1)
                                     Console.Write(", ");
                             }
 
@@ -189,7 +190,7 @@ namespace Part_7___Collections
                             Thread.Sleep(1000);
                             break;
 
-    // FOUR -----------------------------------------------------------------------------------------------------------------------------------------
+                        // FOUR -----------------------------------------------------------------------------------------------------------------------------------------
 
                         case 4:
                             do
@@ -220,7 +221,7 @@ namespace Part_7___Collections
                             Console.WriteLine("Processing... ");
                             Thread.Sleep(1000);
 
-                            for (int i = 0 ; i < integers.Count; i++)
+                            for (int i = 0; i < integers.Count; i++)
                             {
                                 Console.Write(integers[i]);
                                 if (i < integers.Count - 1)
@@ -235,7 +236,7 @@ namespace Part_7___Collections
                             Thread.Sleep(1000);
                             break;
 
-    // FIVE -----------------------------------------------------------------------------------------------------------------------------------------
+                        // FIVE -----------------------------------------------------------------------------------------------------------------------------------------
 
                         case 5:
                             do
@@ -257,7 +258,7 @@ namespace Part_7___Collections
                                 }
                                 else
                                 {
-                                    List <int> IntOccur = integers.FindAll(item => item == number);
+                                    List<int> IntOccur = integers.FindAll(item => item == number);
                                     Console.WriteLine();
                                     Console.WriteLine($"The number {number} occurred {IntOccur.Count} times in the list. ");
                                     done3 = true;
@@ -273,7 +274,7 @@ namespace Part_7___Collections
 
                             break;
 
-    // SIX ------------------------------------------------------------------------------------------------------------------------------------------
+                        // SIX ------------------------------------------------------------------------------------------------------------------------------------------
 
                         case 6:
                             Console.WriteLine("Finding largest value... ");
@@ -290,7 +291,7 @@ namespace Part_7___Collections
 
                             break;
 
-    // SEVEN ----------------------------------------------------------------------------------------------------------------------------------------
+                        // SEVEN ----------------------------------------------------------------------------------------------------------------------------------------
 
                         case 7:
                             Console.WriteLine("Finding smallest value... ");
@@ -307,7 +308,7 @@ namespace Part_7___Collections
 
                             break;
 
-    // EIGHT ----------------------------------------------------------------------------------------------------------------------------------------
+                        // EIGHT ----------------------------------------------------------------------------------------------------------------------------------------
 
                         case 8:
                             Console.WriteLine("Finding the sum and average of list... ");
@@ -328,22 +329,22 @@ namespace Part_7___Collections
 
                             break;
 
-    // NINE -----------------------------------------------------------------------------------------------------------------------------------------
+                        // NINE -----------------------------------------------------------------------------------------------------------------------------------------
 
                         case 9:
                             Console.WriteLine("Finding the most commonly occurring numbers... ");
                             Thread.Sleep(1000);
-                            
+
                             // Thinking
                             break;
 
-    // TEN ------------------------------------------------------------------------------------------------------------------------------------------
+                        // TEN ------------------------------------------------------------------------------------------------------------------------------------------
 
                         case 10:
                             // same as 5???
                             break;
 
-    // ELEVEN ---------------------------------------------------------------------------------------------------------------------------------------
+                        // ELEVEN ---------------------------------------------------------------------------------------------------------------------------------------
 
                         case 11:
                             Console.WriteLine("Quitting Program... ");
@@ -353,35 +354,97 @@ namespace Part_7___Collections
                             break;
                     }
 
-                }while (!done);
-
-
+                } while (!done);
 
                 Console.WriteLine();
             }
 
-// PROGRAM TWO --------------------------------------------------------------------------------------------------------------------------------------
+            // PROGRAM TWO --------------------------------------------------------------------------------------------------------------------------------------
 
             static void Program2()
             {
                 // vvv Create Variables vvv \\
-
+                bool done = false;
+                int choice;
+                choice = 0;
 
                 Console.WriteLine();
-                Console.WriteLine("Running: List of Integers... ");
+                Console.WriteLine("Running: List of Strings... ");
                 Thread.Sleep(1000);
                 Console.WriteLine();
                 Console.WriteLine();
 
                 // vvv Continue Here vvv \\
+                Console.WriteLine("Here is your list of vegetables: ");
 
+                List<string> vegetables = new List<string>() {"CARROT", "BEET", "CELERY", "RADISH", "CABBAGE"};
 
+                for (int i = 0; i < vegetables.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1} - {vegetables[i]}");
+                }
+
+                Console.WriteLine();
+
+                do
+                {
+                    Console.WriteLine("Choose one of the following options: ");
+                    Console.WriteLine("1 - Remove a vegetable(by index) ");
+                    Console.WriteLine("2 - Remove a vegetable(by value) ");
+                    Console.WriteLine("3 - Search for a vegetable ");
+                    Console.WriteLine("4 - Add a vegetable ");
+                    Console.WriteLine("5 - Sort list ");
+                    Console.WriteLine("6 - Clear the lsit ");
+                    Console.WriteLine("7 - Quit program ");
+                    Thread.Sleep(500);
+
+                    Console.Write("Choice:  ");
+
+                    while (!Int32.TryParse(Console.ReadLine(), out choice) || choice > 7 || choice <= 0)
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("Invalid Input. ");
+                        Console.WriteLine();
+                        Console.Write("Choice:  ");
+                    }
+
+                    Console.WriteLine();
+
+                    switch(choice)
+                    {
+                        case 1:
+
+                            break;
+
+                        case 2:
+
+                            break;
+
+                        case 3:
+
+                            break;
+
+                        case 4:
+
+                            break;
+
+                        case 5:
+
+                            break;
+
+                        case 6:
+
+                            break;
+
+                        case 7:
+
+                            break;
+
+                    }
+                }while (!done);
 
                 Console.WriteLine();
             }
-
-
-
         }
     }
 }
