@@ -33,7 +33,7 @@ namespace Part_7___Collections
 
             }
 
-            // PROGRAM ONE --------------------------------------------------------------------------------------------------------------------------------------
+// PROGRAM ONE --------------------------------------------------------------------------------------------------------------------------------------
 
             static void Program1()
             {
@@ -80,14 +80,13 @@ namespace Part_7___Collections
                     Console.WriteLine("  6 - Print the largest number ");
                     Console.WriteLine("  7 - Print the smallest number ");
                     Console.WriteLine("  8 - Print the sum and average ");
-                    Console.WriteLine("  9 - Print most frequently occuring values "); //(top 3 maybe)
-                    Console.WriteLine("  10 - Print number of occurrences from number choice of user ");
-                    Console.WriteLine("  11 - Quit Program ");
+                    Console.WriteLine("  9 - Print most frequently occuring values ");
+                    Console.WriteLine("  10 - Quit Program ");
                     Thread.Sleep(500);
 
                     Console.Write("Choice:  ");
 
-                    while (!Int32.TryParse(Console.ReadLine(), out choice) || choice > 11 || choice <= 0)
+                    while (!Int32.TryParse(Console.ReadLine(), out choice) || choice > 10 || choice <= 0)
                     {
                         Console.WriteLine();
                         Console.WriteLine("Invalid Input. ");
@@ -98,8 +97,9 @@ namespace Part_7___Collections
                     Console.WriteLine();
 
                     switch (choice)
-                    // ONE ------------------------------------------------------------------------------------------------------------------------------------------
                     {
+                        // ONE ------------------------------------------------------------------------------------------------------------------------------------------
+
                         case 1:
                             Console.WriteLine("Sorting Numbers... ");
                             Thread.Sleep(1000);
@@ -271,7 +271,6 @@ namespace Part_7___Collections
                             Console.ReadLine();
                             Console.WriteLine();
                             Thread.Sleep(1000);
-
                             break;
 
                         // SIX ------------------------------------------------------------------------------------------------------------------------------------------
@@ -288,7 +287,6 @@ namespace Part_7___Collections
                             Console.ReadLine();
                             Console.WriteLine();
                             Thread.Sleep(1000);
-
                             break;
 
                         // SEVEN ----------------------------------------------------------------------------------------------------------------------------------------
@@ -305,7 +303,6 @@ namespace Part_7___Collections
                             Console.ReadLine();
                             Console.WriteLine();
                             Thread.Sleep(1000);
-
                             break;
 
                         // EIGHT ----------------------------------------------------------------------------------------------------------------------------------------
@@ -326,7 +323,6 @@ namespace Part_7___Collections
                             Console.ReadLine();
                             Console.WriteLine();
                             Thread.Sleep(1000);
-
                             break;
 
                         // NINE -----------------------------------------------------------------------------------------------------------------------------------------
@@ -341,12 +337,6 @@ namespace Part_7___Collections
                         // TEN ------------------------------------------------------------------------------------------------------------------------------------------
 
                         case 10:
-                            // same as 5???
-                            break;
-
-                        // ELEVEN ---------------------------------------------------------------------------------------------------------------------------------------
-
-                        case 11:
                             Console.WriteLine("Quitting Program... ");
                             Console.WriteLine();
                             Thread.Sleep(1000);
@@ -359,14 +349,16 @@ namespace Part_7___Collections
                 Console.WriteLine();
             }
 
-            // PROGRAM TWO --------------------------------------------------------------------------------------------------------------------------------------
+// PROGRAM TWO --------------------------------------------------------------------------------------------------------------------------------------
 
             static void Program2()
             {
-                // vvv Create Variables vvv \\
                 bool done = false;
-                int choice;
-                choice = 0;
+                bool done1 = false;
+                bool done2 = false;
+                bool done3 = false;
+                int choice, indexChoice;
+                string vegetableRemove, vegetableSearch;
 
                 Console.WriteLine();
                 Console.WriteLine("Running: List of Strings... ");
@@ -374,7 +366,6 @@ namespace Part_7___Collections
                 Console.WriteLine();
                 Console.WriteLine();
 
-                // vvv Continue Here vvv \\
                 Console.WriteLine("Here is your list of vegetables: ");
 
                 List<string> vegetables = new List<string>() {"CARROT", "BEET", "CELERY", "RADISH", "CABBAGE"};
@@ -394,7 +385,7 @@ namespace Part_7___Collections
                     Console.WriteLine("3 - Search for a vegetable ");
                     Console.WriteLine("4 - Add a vegetable ");
                     Console.WriteLine("5 - Sort list ");
-                    Console.WriteLine("6 - Clear the lsit ");
+                    Console.WriteLine("6 - Clear the list ");
                     Console.WriteLine("7 - Quit program ");
                     Thread.Sleep(500);
 
@@ -410,34 +401,149 @@ namespace Part_7___Collections
 
                     Console.WriteLine();
 
-                    switch(choice)
+                    switch (choice)
                     {
-                        case 1:
+                        // ONE ------------------------------------------------------------------------------------------------------------------------------------------
 
+                        case 1:
+                            do
+                            {
+                                Console.WriteLine("Enter an index(starting at 0) from the list that you would like to remove ");
+                                Console.Write("Index:  ");
+                                if (!Int32.TryParse(Console.ReadLine(), out indexChoice))
+                                {
+                                    Console.WriteLine("Invalid Input. ");
+                                    Console.WriteLine();
+                                    Thread.Sleep(500);
+                                }
+                                else if (indexChoice > vegetables.Count - 1 || indexChoice < 0)
+                                {
+                                    Console.WriteLine($"Pick something between 0 and {vegetables.Count - 1}! ");
+                                    Console.WriteLine();
+                                    Thread.Sleep(500);
+                                }
+                                else
+                                {
+                                    vegetables.RemoveAt(indexChoice);
+                                    done1 = true;
+                                }
+                            } while (!done1);
+
+                            Console.WriteLine();
+                            Console.WriteLine("Processing... ");
+                            Thread.Sleep(1000);
+
+                            for (int i = 0; i < vegetables.Count; i++)
+                                Console.WriteLine($"{i + 1} - {vegetables[i]} "); 
+                            
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine("Press ENTER to return to options");
+                            Console.ReadLine();
+                            Console.WriteLine();
+                            Thread.Sleep(1000);
                             break;
+
+                        // TWO ------------------------------------------------------------------------------------------------------------------------------------------
 
                         case 2:
+                            do
+                            {
+                                Console.WriteLine("Enter an vegetable that you would like to remove from the list ");
+                                Console.Write("Vegetable:  ");
+                                vegetableRemove = Console.ReadLine().ToUpper();
 
+                                if (!vegetables.Contains(vegetableRemove))
+                                {
+                                    Console.WriteLine("Invalid Input. ");
+                                    Console.WriteLine();
+                                    Thread.Sleep(500);
+                                }
+                                else
+                                {
+                                    vegetables.Remove(vegetableRemove);
+                                    done2 = true;
+                                }
+                            } while (!done2);
+
+                            Console.WriteLine();
+                            Console.WriteLine("Processing... ");
+                            Thread.Sleep(1000);
+
+                            for (int i = 0; i < vegetables.Count; i++)
+                                Console.WriteLine($"{i + 1} - {vegetables[i]} ");
+
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine("Press ENTER to return to options");
+                            Console.ReadLine();
+                            Console.WriteLine();
+                            Thread.Sleep(1000);
                             break;
+
+                        // THREE ----------------------------------------------------------------------------------------------------------------------------------------
 
                         case 3:
+                            Console.WriteLine("Search for a vegetable ");
+                            Console.Write("Vegetable:  ");
 
+                            vegetableSearch = Console.ReadLine().ToUpper();
+
+                            if (vegetables.Contains(vegetableSearch))
+                            {
+                                for (int i = 0; i < vegetables.Count; i++)
+                                    i += 1;
+                                Console.WriteLine($"Vegetable found at index {i} ");
+                            }
                             break;
+
+                        // FOUR -----------------------------------------------------------------------------------------------------------------------------------------
 
                         case 4:
 
                             break;
 
-                        case 5:
+                        // FIVE -----------------------------------------------------------------------------------------------------------------------------------------
 
+                        case 5:
+                            Console.WriteLine("Sorting List... ");
+                            Thread.Sleep(1000);
+                            vegetables.Sort();
+                            for (int i = 0; i < vegetables.Count; i++)
+                                Console.WriteLine($"{i + 1} - {vegetables[i]} ");
+
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine("Press ENTER to return to options");
+                            Console.ReadLine();
+                            Console.WriteLine();
+                            Thread.Sleep(1000);
                             break;
+
+                        // SIX ------------------------------------------------------------------------------------------------------------------------------------------
 
                         case 6:
+                            Console.WriteLine("Clearing List... ");
+                            Thread.Sleep(1000);
+                            vegetables.Clear();
 
+                            Console.WriteLine("List Cleared! ");
+
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine("Press ENTER to return to options");
+                            Console.ReadLine();
+                            Console.WriteLine();
+                            Thread.Sleep(1000);
                             break;
 
-                        case 7:
+                        // SEVEN ----------------------------------------------------------------------------------------------------------------------------------------
 
+                        case 7:
+                            Console.WriteLine("Quitting Program... ");
+                            Console.WriteLine();
+                            Thread.Sleep(1000);
+                            done = true;
                             break;
 
                     }
